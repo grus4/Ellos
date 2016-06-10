@@ -12,18 +12,17 @@ import java.util.concurrent.TimeUnit;
 
 
 
-public class LoginTest {
-    private static WebDriver driver;
-    private static WebElementsActions web;
-    private String baseUrl = "http://www.ellos.se/";
+public class LoginTest extends Fixture {
+
+    //private String baseUrl = "http://www.ellos.se/";
 
 
-    @BeforeClass
+   /* @BeforeClass
     public static void setUp() throws Exception {
         driver = new FirefoxDriver();
         web = new WebElementsActions(driver);
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-    }
+    }*/
 
 
     @Test
@@ -159,19 +158,11 @@ public class LoginTest {
 
     }
 
-    @AfterClass
+   /* @AfterClass
     public static void tearDown() throws Exception {
         driver.quit();
-    }
+    }*/
 
-    private boolean isElementPresent(By by) {
-        try {
-            driver.findElement(by).isDisplayed();
-            return true;
-        } catch (NoSuchElementException e) {
-            return false;
-        }
-    }
 
 
 

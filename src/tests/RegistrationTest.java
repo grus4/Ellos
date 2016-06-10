@@ -12,20 +12,12 @@ import utils.WebElementsActions;
 
 import java.util.concurrent.TimeUnit;
 
-public class RegistrationTest {
+public class RegistrationTest extends Fixture {
 
-    private static WebDriver driver;
-    private static WebElementsActions web;
-    private String baseUrl = "http://www.ellos.se/";
+
     private String randomUser = RandomUser.randomEmail();
     private String password = "123456";
 
-    @BeforeClass
-    public static void setUp(){
-        driver = new FirefoxDriver();
-        web = new WebElementsActions(driver);
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-    }
 
     @Test
     public void SuccessfulRegistrationNewUserTest() throws Exception {
@@ -183,13 +175,6 @@ public class RegistrationTest {
         Assert.assertTrue("Errror message is not shown", loginPage.isErrorMessageAvailable());
     }
 
-
-
-
-    @AfterClass
-    public static void tearDown() throws Exception {
-        driver.quit();
-    }
 
 
 }

@@ -111,7 +111,33 @@ public class ProductDetailsPage {
                 return false;
             }
 
+
     }
+
+    public boolean isAddToCartButtonAvailable() throws  NoElementFound {
+        if(web.isElementPresent("AddToCartButton") && web.isElementAvailable("AddToCartButton")) {
+            log.info("Add to Cart button is present");
+            return true;
+        } else {
+            log.error("Add to Cart button is not displayed");
+            return false;
+        }
+    }
+
+    public void selectProductSize()  {
+        try {
+            web.clickElement("SizeDropdownField");
+            log.info("Dropdown field was clicked");
+            web.clickElement("36SizeItem");
+            log.info("Size was selected");
+        } catch (NoElementFound noElementFound) {
+            log.error("Dropdown field was not clicked");
+        }
+    }
+
+
+
+
 
 
 
