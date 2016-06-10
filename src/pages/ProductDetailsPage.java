@@ -1,6 +1,7 @@
 package pages;
 
 import org.apache.log4j.Logger;
+import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import utils.NoElementFound;
 import utils.WebElementsActions;
@@ -11,13 +12,11 @@ import utils.WebElementsActions;
 public class ProductDetailsPage {
 
     private WebElementsActions web;
-
     public static final Logger log = Logger.getLogger(ProductDetailsPage.class);
 
     public ProductDetailsPage(WebDriver driver) {
         web = new WebElementsActions(driver);
     }
-
 
 
     public boolean isDisplayedCorrectProductPage() throws NoElementFound {
@@ -135,9 +134,44 @@ public class ProductDetailsPage {
         }
     }
 
+    public void chekcCorrectPDPUI() throws NoElementFound {
+        /*if (isMainImageAvailable()
+                && isTheFirstThumbnailAvailable()
+                &&
+                ...
+                ...
+                ) {
 
+            log.info("Product attributes is correct");
+        } else {
+            String stringError = "image is not displayed - " + isMainImageAvailable() + "\n" +
+                    "irst thumbnails is not displayed - " + isTheFirstThumbnailAvailable();
 
+            log.error(stringError);
+            Assert.fail(stringError);
 
+            //OR
+
+            log.error("image is not displayed - " + isMainImageAvailable() +
+            "irst thumbnails is not displayed - " + isTheFirstThumbnailAvailable()
+            ...
+            ...
+            );
+            Assert.fail("image is not displayed - " + isMainImageAvailable() +
+                    "irst thumbnails is not displayed - " + isTheFirstThumbnailAvailable()
+            ...
+            ...
+            );   */
+        }
+
+/*        Assert.assertTrue("Main image is not displayed", productDetailPage.isMainImageAvailable());
+        Assert.assertTrue("The first thumbnails is not displayed", productDetailPage.isTheFirstThumbnailAvailable());
+        Assert.assertTrue("The second thumbnails is not displayed", productDetailPage.isTheSecondThumbnailAbailable());
+        Assert.assertTrue("The third thumbnails is not displayed", productDetailPage.isTheThirdThumbnailAvailable());
+        Assert.assertTrue("The fourth thumbnails is not displayed", productDetailPage.isTheFourthThumbnailAvailable());
+        Assert.assertTrue("The size dropdown is not displayed", productDetailPage.isSizeDropdownAvailable());
+        Assert.assertTrue("The color dropdown is not displayed", productDetailPage.isColorDropdownAvailable());
+        Assert.assertTrue("The Add to cart button is not displayed", productDetailPage.isAddToCartButtonAvailable());*/
 
 
 
