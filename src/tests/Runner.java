@@ -5,7 +5,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import utils.WebElementsActions;
 
 import java.util.concurrent.TimeUnit;
@@ -17,15 +17,15 @@ import java.util.concurrent.TimeUnit;
         RegistrationTest.class,
         ProductPageTest.class
 })
-public class Fixture {
+public class Runner {
     public static  WebElementsActions web;
     public static WebDriver driver;
-    private static final Logger log = Logger.getLogger(Fixture.class);
+    private static final Logger log = Logger.getLogger(Runner.class);
     public static final String baseUrl = "http://www.ellos.se/";
 
     @BeforeClass
     public static void setUp() throws Exception {
-        driver = new FirefoxDriver();
+        driver = new ChromeDriver();
         web = new WebElementsActions(driver);
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
         log.info("Start Test Suite execution");
