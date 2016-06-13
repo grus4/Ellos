@@ -5,3 +5,4 @@ target/
 #Java files
 *.class
 *.jar
+out/

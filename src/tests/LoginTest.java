@@ -1,29 +1,22 @@
-import org.junit.*;
-import org.openqa.selenium.By;
+package tests;
+
+import org.junit.Assert;
+import org.junit.Test;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import pages.LoginPage;
 import pages.MainPage;
 import utils.NoElementFound;
 import utils.WebElementsActions;
 
-import java.util.NoSuchElementException;
 import java.util.concurrent.TimeUnit;
 
 
 
-public class LoginTest extends Fixture {
+public class LoginTest {
 
-    //private String baseUrl = "http://www.ellos.se/";
-
-
-   /* @BeforeClass
-    public static void setUp() throws Exception {
-        driver = new FirefoxDriver();
-        web = new WebElementsActions(driver);
-        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-    }*/
-
+    private WebDriver driver = Runner.driver;
+    private WebElementsActions web = new WebElementsActions(driver);
+    private static final String baseUrl = "http://www.ellos.se/";
 
     @Test
     public void testForSuccessfulLogin () throws Exception {
@@ -35,30 +28,14 @@ public class LoginTest extends Fixture {
         mainPage.clicLoginLink();
 
         LoginPage loginPage = new LoginPage(driver);
-
-        /*
-        * Fill out a Login field with invalid data
-        * */
+        //Fill out a Login field with invalid data
         loginPage.fillLoginField("rulezz234@ukr.net");
-
-        /*
-        * Fill out a password field with invalid data
-        * */
+        //Fill out a password field with invalid data
         loginPage.focusOnPasswordField();
         loginPage.fillPasswordField("789987123life");
-
-        //driver.findElement(By.xpath(".//input[@id='LoginPasswordText']")).clear();
-
         loginPage.clickLoginButton();
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-
         Assert.assertTrue("The user is not logged in", mainPage.isLogoutLinkAvailable());
-
-
         mainPage.clickLogoutLink();
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-
-
     }
 
     @Test
@@ -67,13 +44,10 @@ public class LoginTest extends Fixture {
         web.openPage(baseUrl);
         web.refreshPage();
 
-
         //create object of Main Page
         MainPage mainPage = new MainPage(driver);
-
         //click Login link at the header
         mainPage.clicLoginLink();
-
         //create object of Login Page
         LoginPage loginPage = new LoginPage(driver);
         //leave empty login and password fields and click Login button
@@ -102,9 +76,7 @@ public class LoginTest extends Fixture {
 
         //click the login button
         loginPage.clickLoginButton();
-
         Assert.assertTrue("Error massage is not shown in case blank Email and Password fields", loginPage.isErrorMessageAvailable());
-        //System.out.println(isElementPresent(By.xpath(".//div[@id='ctl00_ctl00_conMain_conMain_LoginControl_pnl' and @class='boxFrameError']")));
 
     }
 
@@ -157,12 +129,6 @@ public class LoginTest extends Fixture {
         Assert.assertTrue("Error massage is not shown in case blank Email and Password fields", loginPage.isErrorMessageAvailable());
 
     }
-
-   /* @AfterClass
-    public static void tearDown() throws Exception {
-        driver.quit();
-    }*/
-
 
 
 

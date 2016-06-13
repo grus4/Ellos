@@ -16,7 +16,7 @@ public class WebElementsActions {
     private WebDriver driver;
     private static WebDriverWait waitForElement;
 
-    public static  final Logger log = Logger.getLogger(WebElementsActions.class);
+    public static final Logger log = Logger.getLogger(WebElementsActions.class);
 
 
     public WebElementsActions(WebDriver driver) {
@@ -297,10 +297,11 @@ public class WebElementsActions {
      * @see {@link JavascriptExecutor} and {@link JavascriptExecutor#executeScript(String, Object...)}
      */
     public void windowScroll() {
-
         JavascriptExecutor javascriptExecutor = (JavascriptExecutor) driver;
         // Vertical scroll - down by 100  pixels
         javascriptExecutor.executeScript("window.scrollBy(0,100)", "");
-
     }
+
+
+
 }

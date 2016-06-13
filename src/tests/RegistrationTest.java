@@ -1,20 +1,19 @@
-import org.junit.AfterClass;
+package tests;
+
 import org.junit.Assert;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import pages.LoginPage;
 import pages.MainPage;
 import pages.SuccessfulRegistrationPage;
 import random.RandomUser;
 import utils.WebElementsActions;
 
-import java.util.concurrent.TimeUnit;
+public class RegistrationTest {
 
-public class RegistrationTest extends Fixture {
-
-
+    private WebDriver driver = Runner.driver;
+    private WebElementsActions web = new WebElementsActions(driver);
+    private static final String baseUrl = "http://www.ellos.se/";
     private String randomUser = RandomUser.randomEmail();
     private String password = "123456";
 
@@ -64,7 +63,6 @@ public class RegistrationTest extends Fixture {
         mainPage.clicLoginLink();
 
         LoginPage loginPage = new LoginPage(driver);
-        SuccessfulRegistrationPage successfulRegistrationPage = new SuccessfulRegistrationPage(driver);
 
         //leave empty email fields
         //click on registration button
