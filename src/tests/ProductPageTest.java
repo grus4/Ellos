@@ -1,8 +1,9 @@
 package tests;
 
-import org.junit.Assert;
-import org.junit.Test;
+
 import org.openqa.selenium.WebDriver;
+import org.testng.Assert;
+import org.testng.annotations.Test;
 import pages.CategoryLandingPage;
 import pages.MainPage;
 import pages.ProductDetailsPage;
@@ -14,7 +15,7 @@ import utils.WebElementsActions;
  */
 public class ProductPageTest {
 
-    private WebDriver driver = Runner.driver;
+    private WebDriver driver = Fixture.driver;
     private WebElementsActions web = new WebElementsActions(driver);
     private static final String baseUrl = "http://www.ellos.se/";
 
@@ -32,7 +33,7 @@ public class ProductPageTest {
         ProductDetailsPage productDetailPage = new ProductDetailsPage(driver);
 
         productDetailPage.checkProductDetailPageUI();
-        //Assert.assertTrue("PDP is incorrect", productDetailPage.isDisplayedCorrectProductPage());
+
     }
 
     @Test
@@ -61,7 +62,7 @@ public class ProductPageTest {
         categoryLandingPage.switchToFirstProductDetailPage();
         ProductDetailsPage productDetailPage = new ProductDetailsPage(driver);
 
-        Assert.assertTrue("Switching to Product Detail Page was incorrect",  productDetailPage.isAddToCartButtonAvailable());
+        Assert.assertTrue(productDetailPage.isDisplayedCorrectProductPage(), "Switching to Product Detail Page was incorrect");
     }
 
 

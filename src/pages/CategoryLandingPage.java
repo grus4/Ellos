@@ -17,32 +17,6 @@ public class CategoryLandingPage {
         web = new WebElementsActions(driver);
     }
 
-    public boolean isTextPresent() {
-
-        try {
-
-            if (web.isElementPresent("")) {
-
-                log.info("correct page");
-                return true;
-
-            } else {
-
-                log.info("incorrect page");
-                return false;
-
-            }
-
-        } catch (NoElementFound noElementFound) {
-
-            noElementFound.printStackTrace();
-            log.error("");
-
-        }
-
-        return false;
-
-    }
 
     public void switchToFirstProductDetailPage() {
         try {

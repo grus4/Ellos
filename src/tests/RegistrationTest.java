@@ -1,8 +1,9 @@
 package tests;
 
-import org.junit.Assert;
-import org.junit.Test;
+
 import org.openqa.selenium.WebDriver;
+import org.testng.Assert;
+import org.testng.annotations.Test;
 import pages.LoginPage;
 import pages.MainPage;
 import pages.SuccessfulRegistrationPage;
@@ -11,7 +12,7 @@ import utils.WebElementsActions;
 
 public class RegistrationTest {
 
-    private WebDriver driver = Runner.driver;
+    private WebDriver driver = Fixture.driver;
     private WebElementsActions web = new WebElementsActions(driver);
     private static final String baseUrl = "http://www.ellos.se/";
     private String randomUser = RandomUser.randomEmail();
@@ -48,7 +49,7 @@ public class RegistrationTest {
         loginPage.clickRegistrationButton();
 
         //verify successfull registration message
-        Assert.assertTrue("Registration is not successful",successfulRegistrationPage.isRegistrationSuccessful());
+        Assert.assertTrue(successfulRegistrationPage.isRegistrationSuccessful(), "Registration is not successful");
 
     }
 
@@ -70,7 +71,7 @@ public class RegistrationTest {
 
         //verify error messages block
 
-        Assert.assertTrue("Error message is not shown", loginPage.isEmptyFieldsErrorMessageForRgeistrationFormAvailable());
+        Assert.assertTrue(loginPage.isEmptyFieldsErrorMessageForRgeistrationFormAvailable(), "Error message is not shown");
     }
 
     @Test
@@ -103,7 +104,7 @@ public class RegistrationTest {
         loginPage.clickRegistrationButton();
 
         //verify error messages block
-        Assert.assertTrue("Error message is not shown", loginPage.isEmptyFieldsErrorMessageForRgeistrationFormAvailable());
+        Assert.assertTrue(loginPage.isEmptyFieldsErrorMessageForRgeistrationFormAvailable(), "Error message is not shown");
 
     }
 
@@ -137,7 +138,7 @@ public class RegistrationTest {
         loginPage.clickRegistrationButton();
 
         //verify error messages block
-        Assert.assertTrue("Error message is not shown",loginPage.isEmptyFieldsErrorMessageForRgeistrationFormAvailable());
+        Assert.assertTrue(loginPage.isEmptyFieldsErrorMessageForRgeistrationFormAvailable(), "Error message is not shown");
 
     }
 
@@ -170,7 +171,7 @@ public class RegistrationTest {
         //click on registration button
         loginPage.clickRegistrationButton();
 
-        Assert.assertTrue("Errror message is not shown", loginPage.isErrorMessageAvailable());
+        Assert.assertTrue(loginPage.isErrorMessageAvailable(), "Errror message is not shown");
     }
 
 

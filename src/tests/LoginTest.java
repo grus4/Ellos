@@ -1,20 +1,19 @@
 package tests;
 
-import org.junit.Assert;
-import org.junit.Test;
+
 import org.openqa.selenium.WebDriver;
+import org.testng.Assert;
+import org.testng.annotations.Test;
 import pages.LoginPage;
 import pages.MainPage;
 import utils.NoElementFound;
 import utils.WebElementsActions;
 
-import java.util.concurrent.TimeUnit;
-
 
 
 public class LoginTest {
 
-    private WebDriver driver = Runner.driver;
+    private WebDriver driver = Fixture.driver;
     private WebElementsActions web = new WebElementsActions(driver);
     private static final String baseUrl = "http://www.ellos.se/";
 
@@ -34,7 +33,7 @@ public class LoginTest {
         loginPage.focusOnPasswordField();
         loginPage.fillPasswordField("789987123life");
         loginPage.clickLoginButton();
-        Assert.assertTrue("The user is not logged in", mainPage.isLogoutLinkAvailable());
+        Assert.assertTrue(mainPage.isLogoutLinkAvailable(),"The user is not logged in");
         mainPage.clickLogoutLink();
     }
 
@@ -53,7 +52,7 @@ public class LoginTest {
         //leave empty login and password fields and click Login button
         loginPage.clickLoginButton();
 
-        Assert.assertTrue("Error massage is not shown in case blank Email and Password fields", loginPage.isErrorMessageAvailable());
+        Assert.assertTrue(loginPage.isErrorMessageAvailable(), "Error massage is not shown in case blank Email and Password fields");
     }
     @Test
     public void testForLoginInvalidDataInLoginFieldAndEmptyPasswordField() throws Exception {
@@ -76,7 +75,7 @@ public class LoginTest {
 
         //click the login button
         loginPage.clickLoginButton();
-        Assert.assertTrue("Error massage is not shown in case blank Email and Password fields", loginPage.isErrorMessageAvailable());
+        Assert.assertTrue(loginPage.isErrorMessageAvailable(), "Error massage is not shown in case blank Email and Password fields");
 
     }
 
@@ -105,7 +104,7 @@ public class LoginTest {
         * */
         loginPage.clickLoginButton();
 
-        Assert.assertTrue("Error massage is not shown in case blank Email and Password fields", loginPage.isErrorMessageAvailable());
+        Assert.assertTrue(loginPage.isErrorMessageAvailable(), "Error massage is not shown in case blank Email and Password fields");
     }
 
     @Test
@@ -126,7 +125,7 @@ public class LoginTest {
 
         loginPage.clickLoginButton();
 
-        Assert.assertTrue("Error massage is not shown in case blank Email and Password fields", loginPage.isErrorMessageAvailable());
+        Assert.assertTrue(loginPage.isErrorMessageAvailable(), "Error massage is not shown in case blank Email and Password fields");
 
     }
 

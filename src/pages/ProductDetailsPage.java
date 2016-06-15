@@ -1,8 +1,8 @@
 package pages;
 
 import org.apache.log4j.Logger;
-import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
+import org.testng.Assert;
 import utils.NoElementFound;
 import utils.WebElementsActions;
 
@@ -146,13 +146,20 @@ public class ProductDetailsPage {
 
     public void selectProductSize() {
         try {
-            web.clickElement("SizeDropdownField");
+            web.moveToElementAndClick("SizeDropdownField", "SizeDropdownField");
             log.info("Dropdown field was clicked");
-            web.clickElement("FirsSizeItem");
+            web.moveToElementAndClick("FirsSizeItem","FirsSizeItem");
             log.info("Size was selected");
         } catch (NoElementFound noElementFound) {
             log.error("Dropdown field was not clicked");
         }
+    }
+
+    public void checkProductSizeList() throws NoElementFound {
+        web.moveToElementAndClick("SizeDropdownField","SizeDropdownField");
+        log.info("Dropdown field was clicked");
+
+
     }
 
     public void checkingImages() throws NoElementFound {
@@ -206,6 +213,7 @@ public class ProductDetailsPage {
 
 
     public void checkSelectedSize() throws NoElementFound {
+
         String selectedSize = web.getElementText("FirsSizeItem");
         String expected = "38";
 

@@ -2,6 +2,7 @@ package pages;
 
 import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
+import org.testng.Assert;
 import utils.LocatorsParser;
 import utils.NoElementFound;
 import utils.WebElementsActions;
@@ -18,146 +19,84 @@ public class LoginPage {
         web = new WebElementsActions(driver);
     }
 
-    public void fillLoginField(String email) {
-        try {web.input("LoginEmailField",email);
-            log.info("Login Email field was filled out");
-        } catch (NoElementFound noElementFound) {
-            noElementFound.printStackTrace();
-            log.error("Login Email field wasn't filled out");
-        }
+    public void fillLoginField(String email) throws NoElementFound {
+        web.input("LoginEmailField",email);
+        log.info("Login Email field was filled out");
 
     }
 
-    public void fillPasswordField(String password) {
-        try {
+    public void fillPasswordField(String password) throws NoElementFound{
             web.input("PasswordField", password);
             log.info("Password field was filled out");
-        } catch (NoElementFound noElementFound) {
-            noElementFound.printStackTrace();
-            log.error("Password field wasn't filled out");
-        }
+
     }
 
-    public void focusOnPasswordField() {
-            try {
+    public void focusOnPasswordField() throws NoElementFound{
                 web.clickElement("PasswordFieldPlaceholder");
                 log.info("Password field was clicked");
-            } catch (NoElementFound noElementFound) {
-                noElementFound.printStackTrace();
-                log.error("Password field was not clicked");
-            }
 
     }
 
-    public void clickLoginButton() {
-        try {
+    public void clickLoginButton() throws NoElementFound{
             web.clickButton("LoginButton");
             log.info("Login Button was clicked");
 
-        } catch (NoElementFound noElementFound) {
-            noElementFound.printStackTrace();
-            log.error("Login button wasn't clicked");
-        }
     }
 
-    public void fillEmailRegistrationField(String emailRegistration) {
-        try {
+    public void fillEmailRegistrationField(String emailRegistration) throws NoElementFound{
             web.input("RegistrationEmailField", emailRegistration);
             log.info("Registration Email field was filled out");
-        }
-        catch (NoElementFound noElementFound) {
-            noElementFound.printStackTrace();
-            log.error("Registration Email field wasn't filled out");
-        }
+
     }
 
-    public void fillRepeatRegistrationEmailField(String repeatEmailRegistration) {
-        try {
+    public void fillRepeatRegistrationEmailField(String repeatEmailRegistration) throws NoElementFound{
             web.input("RegistrationRepeatEmailField", repeatEmailRegistration);
             log.info("Repeat Email field was filled out");
-        }
-        catch (NoElementFound noElementFound) {
-            noElementFound.printStackTrace();
-            log.error("Repeat Email field wasn't filled out");
-        }
+
     }
 
-    public void focusOnRegistrationPasswordField() {
-        try {
+    public void focusOnRegistrationPasswordField() throws NoElementFound{
             web.clickElement("RegistrationPasswordPlaceholder");
             log.info("Registration Password field was clicked");
-        } catch (NoElementFound noElementFound) {
-            noElementFound.printStackTrace();
-            log.error("Registration Password field was not clicked");
-        }
+
     }
 
-    public void clearRegistrationPasswordFiled() {
-        try {
+    public void clearRegistrationPasswordFiled() throws NoElementFound{
             web.clearField("RegistrationPasswordPlaceholder");
             log.info("Registration password placeholder was cleaned");
-        } catch (NoElementFound noElementFound) {
-            noElementFound.printStackTrace();
-            log.info("Registration password placeholder was not cleaned");
-        }
+
     }
 
 
 
-    public void focusOnRepeatRegistrationPasswordField() {
-        try {
+    public void focusOnRepeatRegistrationPasswordField() throws NoElementFound{
             web.clickElement("RegistrationRepeatPasswordPlaceholder");
             log.info("Repeat Registration Password field was clicked");
-        } catch (NoElementFound noElementFound) {
-            noElementFound.printStackTrace();
-            log.error("Repeat Registration Password field was not clicked");
-        }
 
     }
 
-    public void clearRepeatRegistrationPasswordFiled() {
-        try {
+    public void clearRepeatRegistrationPasswordFiled() throws NoElementFound{
             web.clearField("RegistrationRepeatPasswordPlaceholder");
             log.info("Registration password placeholder was cleaned");
-        } catch (NoElementFound noElementFound) {
-            noElementFound.printStackTrace();
-            log.info("Registration password placeholder was not cleaned");
-        }
+
     }
 
-    public void fillPasswordRegistrationField(String passworRegistrationField) {
-        try {
+    public void fillPasswordRegistrationField(String passworRegistrationField) throws NoElementFound{
             web.inputWithoutClean("RegitrationPasswordField", passworRegistrationField);
             log.info("Registartion password field was filled out");
 
-        } catch (NoElementFound noElementFound) {
-            noElementFound.printStackTrace();
-            log.error("Registartion password field wasn't filled out");
-        }
     }
 
-    public void fillRepeatRegistrationPasswordField(String repeatRegistrationPasswordField) {
-        try {
+    public void fillRepeatRegistrationPasswordField(String repeatRegistrationPasswordField) throws NoElementFound{
             web.inputWithoutClean("RepeatRegistrationPasswordField", repeatRegistrationPasswordField);
             log.info("Repeat Registration password field was filled out");
 
-        } catch (NoElementFound noElementFound) {
-            noElementFound.printStackTrace();
-            log.error("Repeat Registration password field wasn't filled out");
-        }
     }
 
-    public void clickRegistrationButton() {
-        try {
+    public void clickRegistrationButton() throws NoElementFound{
             web.windowScroll();
             web.clickButton("RegistrationButton");
             log.info("Registration Button was pressed");
-
-        } catch (NoElementFound noElementFound) {
-            noElementFound.printStackTrace();
-            log.error("Registration Button wasn't pressed");
-        }
-
 
     }
 
@@ -169,6 +108,7 @@ public class LoginPage {
 
             } else {
                 log.error("Error message is not displayed");
+                Assert.fail("Error message is not displayed");
                 return false;
             }
 
@@ -182,6 +122,7 @@ public class LoginPage {
 
             } else {
                 log.error("Error message are not displayed");
+                Assert.fail("Error message are not displayed");
                 return false;
             }
 
