@@ -11,7 +11,7 @@ public class RandomUser {
 
     public static String randomEmail() {
 
-        return "Test" + (int) (Math.random() * 100_000_000) + "@gmail.com";
+        return "Test" + (int) (Math.random() * 100000000) + "@gmail.com";
 
     }
 

@@ -12,13 +12,13 @@ import java.util.List;
 
 public class WebElementsActions {
 
-    private WebDriver driver;
+    private WebDriverWrapper driver;
     private static WebDriverWait waitForElement;
 
-    public static final Logger log = Logger.getLogger(WebElementsActions.class);
+    public static final Logger log = Logger.getLogger(ClassNameUtil.getCurrentClassName());
 
 
-    public WebElementsActions(WebDriver driver) {
+    public WebElementsActions(WebDriverWrapper driver) {
 
         this.driver = driver;
         waitForElement = new WebDriverWait(driver, 20);
@@ -143,6 +143,7 @@ public class WebElementsActions {
     }
 
     public void moveToElementAndClick(String moveToLocator, String clickToElement) throws NoElementFound {
+
         WebElement webElement = driver.findElement(LocatorsParser.ui(moveToLocator));
 
         Actions actions = new Actions(driver);

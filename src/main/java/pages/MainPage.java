@@ -3,21 +3,21 @@ package pages;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
+import utils.ClassNameUtil;
 import utils.NoElementFound;
+import utils.WebDriverWrapper;
 import utils.WebElementsActions;
 
 
 /**
  * Created by user on 5/27/2016.
  */
-public class MainPage {
+public class MainPage extends Page{
 
-    private WebElementsActions web;
-    public static  final Logger log = Logger.getLogger(MainPage.class);
+    public static  final Logger log = Logger.getLogger(ClassNameUtil.getCurrentClassName());
 
-    public MainPage(WebDriver driver) {
-        web = new WebElementsActions(driver);
-
+    public MainPage(WebDriverWrapper dr) {
+        super(dr);
     }
 
     public void clicLoginLink() throws NoElementFound{

@@ -3,21 +3,21 @@ package pages;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
+import utils.ClassNameUtil;
 import utils.NoElementFound;
+import utils.WebDriverWrapper;
 import utils.WebElementsActions;
 
 /**
  * Created by user on 6/5/2016.
  */
-public class ProductDetailsPage {
+public class ProductDetailsPage extends Page{
 
-    private WebElementsActions web;
-    public static final Logger log = Logger.getLogger(ProductDetailsPage.class);
+    public static final Logger log = Logger.getLogger(ClassNameUtil.getCurrentClassName());
 
-    public ProductDetailsPage(WebDriver driver) {
-        web = new WebElementsActions(driver);
+    public ProductDetailsPage(WebDriverWrapper dr) {
+        super(dr);
     }
-
 
     public boolean isDisplayedCorrectProductPage() throws NoElementFound {
 
@@ -286,7 +286,6 @@ public class ProductDetailsPage {
             ...
             ...
             );   */
-
 
 
 }

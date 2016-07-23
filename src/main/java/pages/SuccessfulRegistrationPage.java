@@ -3,21 +3,21 @@ package pages;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
+import utils.ClassNameUtil;
 import utils.NoElementFound;
+import utils.WebDriverWrapper;
 import utils.WebElementsActions;
 
 /**
  * Created by user on 6/3/2016.
  */
-public class SuccessfulRegistrationPage {
+public class SuccessfulRegistrationPage extends Page{
 
-    private WebElementsActions web;
-    Logger log = Logger.getLogger(SuccessfulRegistrationPage.class);
+    Logger log = Logger.getLogger(ClassNameUtil.getCurrentClassName());
 
-    public SuccessfulRegistrationPage(WebDriver driver) {
-        web = new WebElementsActions(driver);
+    public SuccessfulRegistrationPage(WebDriverWrapper dr) {
+        super(dr);
     }
-
 
     public boolean isRegistrationSuccessful() throws NoElementFound {
 
