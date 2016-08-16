@@ -16,49 +16,49 @@ public class LoginPage extends Page{
         super(dr);
     }
 
-    public void fillLoginField(String email) throws NoElementFound {
+    public void fillLoginField(String email) {
         web.input("LoginEmailField",email);
         log.info("Login Email field was filled out");
 
     }
 
-    public void fillPasswordField(String password) throws NoElementFound{
+    public void fillPasswordField(String password){
             web.input("PasswordField", password);
             log.info("Password field was filled out");
 
     }
 
-    public void focusOnPasswordField() throws NoElementFound{
+    public void focusOnPasswordField() {
                 web.clickElement("PasswordFieldPlaceholder");
                 log.info("Password field was clicked");
 
     }
 
-    public void clickLoginButton() throws NoElementFound{
+    public void clickLoginButton() {
             web.clickButton("LoginButton");
             log.info("Login Button was clicked");
 
     }
 
-    public void fillEmailRegistrationField(String emailRegistration) throws NoElementFound{
+    public void fillEmailRegistrationField(String emailRegistration) {
             web.input("RegistrationEmailField", emailRegistration);
             log.info("Registration Email field was filled out");
 
     }
 
-    public void fillRepeatRegistrationEmailField(String repeatEmailRegistration) throws NoElementFound{
+    public void fillRepeatRegistrationEmailField(String repeatEmailRegistration) {
             web.input("RegistrationRepeatEmailField", repeatEmailRegistration);
             log.info("Repeat Email field was filled out");
 
     }
 
-    public void focusOnRegistrationPasswordField() throws NoElementFound{
+    public void focusOnRegistrationPasswordField() {
             web.clickElement("RegistrationPasswordPlaceholder");
             log.info("Registration Password field was clicked");
 
     }
 
-    public void clearRegistrationPasswordFiled() throws NoElementFound{
+    public void clearRegistrationPasswordFiled() {
             web.clearField("RegistrationPasswordPlaceholder");
             log.info("Registration password placeholder was cleaned");
 
@@ -66,38 +66,38 @@ public class LoginPage extends Page{
 
 
 
-    public void focusOnRepeatRegistrationPasswordField() throws NoElementFound{
+    public void focusOnRepeatRegistrationPasswordField() {
             web.clickElement("RegistrationRepeatPasswordPlaceholder");
             log.info("Repeat Registration Password field was clicked");
 
     }
 
-    public void clearRepeatRegistrationPasswordFiled() throws NoElementFound{
+    public void clearRepeatRegistrationPasswordFiled() {
             web.clearField("RegistrationRepeatPasswordPlaceholder");
             log.info("Registration password placeholder was cleaned");
 
     }
 
-    public void fillPasswordRegistrationField(String passworRegistrationField) throws NoElementFound{
+    public void fillPasswordRegistrationField(String passworRegistrationField) {
             web.inputWithoutClean("RegitrationPasswordField", passworRegistrationField);
             log.info("Registartion password field was filled out");
 
     }
 
-    public void fillRepeatRegistrationPasswordField(String repeatRegistrationPasswordField) throws NoElementFound{
+    public void fillRepeatRegistrationPasswordField(String repeatRegistrationPasswordField) {
             web.inputWithoutClean("RepeatRegistrationPasswordField", repeatRegistrationPasswordField);
             log.info("Repeat Registration password field was filled out");
 
     }
 
-    public void clickRegistrationButton() throws NoElementFound{
+    public void clickRegistrationButton() {
             web.windowScroll();
             web.clickButton("RegistrationButton");
             log.info("Registration Button was pressed");
 
     }
 
-    public boolean isErrorMessageAvailable() throws NoElementFound {
+    public boolean isErrorMessageAvailable()  {
 
             if (web.isElementPresent("ErrorMessageBlock") && web.isElementAvailable("ErrorMessageBlock")) {
                 log.info("Error message is displayed");
@@ -111,7 +111,7 @@ public class LoginPage extends Page{
 
     }
 
-    public boolean isEmptyFieldsErrorMessageForRgeistrationFormAvailable() throws NoElementFound {
+    public boolean isEmptyFieldsErrorMessageForRgeistrationFormAvailable() {
 
             if (web.isElementPresent("EmptyFieldsErrorMessage") && web.isElementAvailable("EmptyFieldsErrorMessage")) {
                 log.info("Error messages are displayed");

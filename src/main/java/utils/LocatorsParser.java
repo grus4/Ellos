@@ -10,7 +10,7 @@ public class LocatorsParser {
 
     public static String uiMappingFile = "/UIMapping.properties";
 
-    public static String getValueFromFile(String key, String fileName) throws NoElementFound {
+    public static String getValueFromFile(String key, String fileName) {
         Properties p = new Properties();
 
         try {

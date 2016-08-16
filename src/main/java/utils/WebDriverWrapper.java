@@ -51,8 +51,8 @@ public class WebDriverWrapper implements WebDriver, TakesScreenshot {
 
     @Override
     public WebElement findElement(By by) {
-        WebDriverWait wait = new WebDriverWait(driver, TIME_TO_WAIT);
-        wait.until(ExpectedConditions.presenceOfElementLocated(by));
+        //WebDriverWait wait = new WebDriverWait(driver, TIME_TO_WAIT);
+        //wait.until(ExpectedConditions.presenceOfElementLocated(by));
         return driver.findElement(by);
     }
 

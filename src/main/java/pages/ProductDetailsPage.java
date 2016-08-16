@@ -1,12 +1,10 @@
 package pages;
 
 import org.apache.log4j.Logger;
-import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import utils.ClassNameUtil;
 import utils.NoElementFound;
 import utils.WebDriverWrapper;
-import utils.WebElementsActions;
 
 /**
  * Created by user on 6/5/2016.
@@ -33,7 +31,7 @@ public class ProductDetailsPage extends Page{
 
     }
 
-    public boolean isMainImageAvailable() throws NoElementFound {
+    public boolean isMainImageAvailable() {
         if (web.isElementPresent("MainImage") && web.isElementAvailable("MainImage")) {
             log.info("Main image is present");
             return true;
@@ -44,7 +42,7 @@ public class ProductDetailsPage extends Page{
         }
     }
 
-    public boolean isSizeDropdownAvailable() throws NoElementFound {
+    public boolean isSizeDropdownAvailable() {
 
         if (web.isElementPresent("DressSizeDropDown") && web.isElementAvailable("DressSizeDropDown")) {
             log.info("Size dropdown is present");
@@ -56,7 +54,7 @@ public class ProductDetailsPage extends Page{
         }
     }
 
-    public boolean isColorDropdownAvailable() throws NoElementFound {
+    public boolean isColorDropdownAvailable() {
         if (web.isElementPresent("DressColorDropDown") && web.isElementAvailable("DressColorDropDown")) {
             log.info("Color dropdown is present");
             return true;
@@ -68,7 +66,7 @@ public class ProductDetailsPage extends Page{
     }
 
 
-    public boolean isTheFirstThumbnailAvailable() throws NoElementFound {
+    public boolean isTheFirstThumbnailAvailable() {
 
         if (web.isElementPresent("FirstThumbnail") && web.isElementAvailable("FirstThumbnail")) {
             log.info("The FirstThumbnail is present");
@@ -81,7 +79,7 @@ public class ProductDetailsPage extends Page{
 
     }
 
-    public boolean isTheSecondThumbnailAbailable() throws NoElementFound {
+    public boolean isTheSecondThumbnailAbailable() {
 
         if (web.isElementPresent("SecondThumbnail") && web.isElementAvailable("SecondThumbnail")) {
             log.info("The Second Thumbnail is present");
@@ -94,8 +92,7 @@ public class ProductDetailsPage extends Page{
 
     }
 
-    public boolean isTheThirdThumbnailAvailable() throws NoElementFound {
-
+    public boolean isTheThirdThumbnailAvailable() {
         if (web.isElementPresent("ThirdThumbnail") && web.isElementAvailable("ThirdThumbnail")) {
             log.info("The Third Thumbnail is present");
             return true;
@@ -104,11 +101,9 @@ public class ProductDetailsPage extends Page{
             Assert.fail("The Third Thumbnail is not present");
             return false;
         }
-
     }
 
-    public boolean isTheFourthThumbnailAvailable() throws NoElementFound {
-
+    public boolean isTheFourthThumbnailAvailable() {
         if (web.isElementPresent("FourthThumbnail") && web.isElementAvailable("FourthThumbnail")) {
             log.info("The Fourth Thumbnail is present");
             return true;
@@ -117,11 +112,9 @@ public class ProductDetailsPage extends Page{
             Assert.fail("The Fourth Thumbnail is not present");
             return false;
         }
-
-
     }
 
-    public boolean isAddToCartButtonAvailable() throws NoElementFound {
+    public boolean isAddToCartButtonAvailable() {
         if (web.isElementPresent("AddToCartButton") && web.isElementAvailable("AddToCartButton")) {
             log.info("Add to Cart button is present");
             return true;
@@ -132,7 +125,7 @@ public class ProductDetailsPage extends Page{
         }
     }
 
-    public boolean isProductPriceAvailable() throws NoElementFound {
+    public boolean isProductPriceAvailable() {
         if (web.isElementPresent("ProductPrice") && web.isElementAvailable("ProductPrice")) {
             log.info("Product price is displayed correctly on the PDP");
             return true;
@@ -143,26 +136,21 @@ public class ProductDetailsPage extends Page{
         }
     }
 
-
     public void selectProductSize() {
-        try {
-            web.moveToElementAndClick("SizeDropdownField", "SizeDropdownField");
-            log.info("Dropdown field was clicked");
-            web.moveToElementAndClick("FirsSizeItem","FirsSizeItem");
-            log.info("Size was selected");
-        } catch (NoElementFound noElementFound) {
-            log.error("Dropdown field was not clicked");
-        }
+        web.moveToElementAndClick("SizeDropdownField", "SizeDropdownField");
+        log.info("Dropdown field was clicked");
+        web.moveToElementAndClick("FirsSizeItem","FirsSizeItem");
+        log.info("Size was selected");
     }
 
-    public void checkProductSizeList() throws NoElementFound {
+    public void checkProductSizeList() {
         web.moveToElementAndClick("SizeDropdownField","SizeDropdownField");
         log.info("Dropdown field was clicked");
 
 
     }
 
-    public void checkingImages() throws NoElementFound {
+    public void checkingImages() {
         if (isMainImageAvailable()
                 && isTheFirstThumbnailAvailable()
                 && isTheSecondThumbnailAbailable()
@@ -183,25 +171,25 @@ public class ProductDetailsPage extends Page{
 
         }
     }
-        public void checkingProductAtributes() throws NoElementFound {
+    public void checkingProductAtributes() {
 
-            if(isProductPriceAvailable()
-                    && isColorDropdownAvailable()
-                    && isSizeDropdownAvailable()) {
+        if(isProductPriceAvailable()
+                && isColorDropdownAvailable()
+                && isSizeDropdownAvailable()) {
 
-                log.info("Product attributes are displayed correctly");
+            log.info("Product attributes are displayed correctly");
 
-            } else {
-                String stringError = "Product price is not displayed - " + isProductPriceAvailable() + "\n" +
-                        "Color dropdown is not displayed - " + isColorDropdownAvailable() + "\n" +
-                        "Size dropdown is not displayed - " + isSizeDropdownAvailable();
+        } else {
+            String stringError = "Product price is not displayed - " + isProductPriceAvailable() + "\n" +
+                    "Color dropdown is not displayed - " + isColorDropdownAvailable() + "\n" +
+                    "Size dropdown is not displayed - " + isSizeDropdownAvailable();
 
-                log.info(stringError);
-                Assert.fail(stringError);
-            }
+            log.info(stringError);
+            Assert.fail(stringError);
+        }
     }
 
-    public void checkingAddToCartButton() throws NoElementFound {
+    public void checkingAddToCartButton() {
         if(isAddToCartButtonAvailable()) {
             log.info("Add to cart button is displayed correctly");
         } else {
@@ -212,7 +200,7 @@ public class ProductDetailsPage extends Page{
 
 
 
-    public void checkSelectedSize() throws NoElementFound {
+    public void checkSelectedSize() {
 
         String selectedSize = web.getElementText("FirsSizeItem");
         String expected = "38";
@@ -220,14 +208,13 @@ public class ProductDetailsPage extends Page{
         Assert.assertEquals("Selected size" + selectedSize + " is incorrect", expected, selectedSize);
     }
 
-    public void checkProductDetailPageUI() throws NoElementFound {
-
+    public void checkProductDetailPageUI() {
         checkingImages();
         checkingProductAtributes();
         checkingAddToCartButton();
     }
 
-    public void addProductToCart() throws NoElementFound {
+    public void addProductToCart() {
         web.windowScroll();
         web.clickButton("AddToCartButton");
         log.info("Add to cart button was clicked");

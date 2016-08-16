@@ -3,7 +3,6 @@ package pages;
 import org.apache.log4j.Logger;
 import org.testng.Assert;
 import utils.ClassNameUtil;
-import utils.NoElementFound;
 import utils.WebDriverWrapper;
 import utils.WebElementsActions;
 
@@ -51,7 +50,6 @@ public abstract class Page {
      * Verification Page open correct. Check on pageLocator
      */
     public boolean isOpenPage(String checkLocator){
-        try {
             if (web.isElementPresent(checkLocator)) {
                 log.info("Page: Check is page open. " + checkLocator + " is present!");
                 log.info(ClassNameUtil.getCurrentClassName() + ": Page is open.");
@@ -60,9 +58,6 @@ public abstract class Page {
                 log.error("Page: Error with check page!\n");
                 Assert.fail("Incorrect swatch");
             }
-        } catch (NoElementFound noElementFound) {
-            noElementFound.printStackTrace();
-        }
         return false;
     }
 

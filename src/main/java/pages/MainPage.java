@@ -1,12 +1,9 @@
 package pages;
 
 import org.apache.log4j.Logger;
-import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import utils.ClassNameUtil;
-import utils.NoElementFound;
 import utils.WebDriverWrapper;
-import utils.WebElementsActions;
 
 
 /**
@@ -20,36 +17,33 @@ public class MainPage extends Page{
         super(dr);
     }
 
-    public void clicLoginLink() throws NoElementFound{
+    public void clicLoginLink() {
         web.clickLink("LoginLink");
         log.info("Login link was clicked");
 
     }
 
-    public void clickLogoutLink() throws NoElementFound{
-            web.clickLink("LogoutLink");
-            log.info("Logout link was clicked");
+    public void clickLogoutLink() {
+        web.clickLink("LogoutLink");
+        web.waitElementNotVisible("LogoutLink", 30);
+        log.info("Logout link was clicked");
 
     }
 
-    public boolean isLogoutLinkAvailable() throws NoElementFound {
-
-            if(web.isElementPresent("LogoutLink")) {
-                log.info("User is logged in successfully");
-                return true;
-
-            } else {
-                log.error("User is not logged in");
-                Assert.fail("User is not logged in");
-                return false;
-
-            }
-
+    public boolean isLogoutLinkAvailable() {
+        if(web.isElementPresent("LogoutLink")) {
+            log.info("User is logged in successfully");
+            return true;
+        } else {
+            log.error("User is not logged in");
+            Assert.fail("User is not logged in");
+            return false;
+        }
     }
 
-    public void switchToLinnenSubcategoryLandingPage() throws NoElementFound{
-             web.moveToElementAndClick("DamCategorylink","LinnenSubcategory");
-             log.info("Linnen item was clicked");
+    public void switchToLinnenSubcategoryLandingPage() {
+        web.moveToElementAndClick("DamCategorylink","LinnenSubcategory");
+        log.info("Linnen item was clicked");
 
     }
 

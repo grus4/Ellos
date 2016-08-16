@@ -7,88 +7,117 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
 public class WebElementsActions {
 
-    private WebDriverWrapper driver;
+    private WebDriverWrapper webDriverWrapper;
     private static WebDriverWait waitForElement;
 
     public static final Logger log = Logger.getLogger(ClassNameUtil.getCurrentClassName());
 
 
     public WebElementsActions(WebDriverWrapper driver) {
-
-        this.driver = driver;
+        this.webDriverWrapper = driver;
         waitForElement = new WebDriverWait(driver, 20);
     }
 
 
     public void openPage(String siteURL){
-        driver.get(siteURL);
+        webDriverWrapper.get(siteURL);
     }
 
-    public void clickElement(String elementLocator) throws NoElementFound {
-        driver.findElement(LocatorsParser.ui(elementLocator)).click();
+    public void clickElement(String elementLocator) {
+        webDriverWrapper.findElement(UIMappingSingleton.ui(elementLocator)).click();
     }
 
     /**
      * Click a button
      */
-    public void clickButton(String buttonLocator) throws NoElementFound {
-        driver.findElement(LocatorsParser.ui(buttonLocator)).click();
+    public void clickButton(String buttonLocator) {
+        webDriverWrapper.findElement(UIMappingSingleton.ui(buttonLocator)).click();
         log.info("Click on Button " + buttonLocator);
     }
 
     /**
      * Click link
      */
-    public void clickLink(String linkLocator) throws NoElementFound {
-        driver.findElement(LocatorsParser.ui(linkLocator)).click();
+    public void clickLink(String linkLocator) {
+        webDriverWrapper.findElement(UIMappingSingleton.ui(linkLocator)).click();
         log.info("Click on Link " + linkLocator);
     }
 
     /**
      * Insert value into text input HTML field
      */
-    public void input(String inputLocator, String inputData) throws NoElementFound {
-        driver.findElement(LocatorsParser.ui(inputLocator)).clear();
-        driver.findElement(LocatorsParser.ui(inputLocator)).sendKeys(inputData);
+    public void input(String inputLocator, String inputData)  {
+        webDriverWrapper.findElement(UIMappingSingleton.ui(inputLocator)).clear();
+        webDriverWrapper.findElement(UIMappingSingleton.ui(inputLocator)).sendKeys(inputData);
         log.info("Input in " + inputLocator + ", value - " + inputData);
     }
 
-    public void clearField(String inputLocator) throws NoElementFound {
-        driver.findElement(LocatorsParser.ui(inputLocator)).clear();
+    public void clearField(String inputLocator) {
+        webDriverWrapper.findElement(UIMappingSingleton.ui(inputLocator)).clear();
         log.info("Plaseholder was cleaned");
     }
 
     /**
      * Insert value into text input HTML field and Click ENTER for Field which used "Value" in the xpath expression
      */
-    public void inputAndClickEnter(String inputLocator, String inputData) throws NoElementFound {
-        driver.findElement(LocatorsParser.ui(inputLocator)).clear();
-        driver.findElement(LocatorsParser.ui(inputLocator)).sendKeys(inputData);
-        driver.findElement(LocatorsParser.ui(inputLocator)).sendKeys(Keys.ENTER);
+    public void inputAndClickEnter(String inputLocator, String inputData) {
+        webDriverWrapper.findElement(UIMappingSingleton.ui(inputLocator)).clear();
+        webDriverWrapper.findElement(UIMappingSingleton.ui(inputLocator)).sendKeys(inputData);
+        webDriverWrapper.findElement(UIMappingSingleton.ui(inputLocator)).sendKeys(Keys.ENTER);
         log.info("Input in " + inputLocator + ", value -" + inputData + "and click <Enter> button");
     }
+
+
     /**
      * Method is used to check that element is present on page.
      */
-    public boolean isElementPresent(String elementLocator) throws NoElementFound {
-        if (!driver.findElement(LocatorsParser.ui(elementLocator)).isDisplayed()) {
-            log.info("Element is not found");
+    public boolean isElementPresent(String elementLocator) {
+        List<WebElement> list = webDriverWrapper.findElements(UIMappingSingleton.ui(elementLocator));
+
+        if (list.size() == 0) {
+            log.warn("Element _" + elementLocator + "_is NOT Present in DOM!");
             return false;
         }
-        log.info("Element is present on the page");
+
+        if (list.get(0).isDisplayed()) {
+            log.info("Element _" + elementLocator + "_ is Present");
+            return true;
+        }
+        else {
+            log.error("Element _" + elementLocator + "_ is NOT Displayed Present!");
+            return false;
+        }
+    }
+
+    public boolean isAllElementsPresent(String elementLocator) {
+        List<WebElement> list = new ArrayList<>();
+        list.addAll(webDriverWrapper.findElements(UIMappingSingleton.ui(elementLocator)));
+
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).isDisplayed()) {
+                list.get(i).equals("");
+                //log.info("Element _" + list.get(i) + "_ is present!");
+            } else {
+                log.warn("Element _" + list.get(i) + "_; element (" + i + ") _is NOT Present!");
+                return false;
+            }
+        }
+
+        log.info("Total quantity of " + elementLocator + " - " + list.size());
         return true;
     }
 
     /**
      * Method is used to check that element is present in the DOM.
      */
-    public boolean isElementAvailable(String elementLocator) throws NoElementFound {
-        if(!driver.findElement(LocatorsParser.ui(elementLocator)).isEnabled()) {
+    public boolean isElementAvailable(String elementLocator) {
+        if(!webDriverWrapper.findElement(UIMappingSingleton.ui(elementLocator)).isEnabled()) {
             log.info("Element is not found");
             return false;
         }
@@ -96,22 +125,13 @@ public class WebElementsActions {
         return  true;
     }
 
-    /*private boolean isElementPresent(By by) {
-        try {
-            driver.findElement(by).isDisplayed();
-            return true;
-        } catch (NoSuchElementException e) {
-            return false;
-        }
-    }*/
-
     /**
      * This method is used to agree messages on pop-up windows
      */
     public boolean isAlertPresent() {
         boolean alertPresence = false;
         try {
-            Alert alert = driver.switchTo().alert();
+            Alert alert = webDriverWrapper.switchTo().alert();
             alertPresence = true;
             alert.accept();
             log.info("Alert is present");
@@ -130,7 +150,7 @@ public class WebElementsActions {
     public String getAlertText() {
         String alertText;
         try {
-            Alert alert = driver.switchTo().alert();
+            Alert alert = webDriverWrapper.switchTo().alert();
             alertText = alert.getText();
             alert.accept();
             log.info("Alert text: " + alertText);
@@ -142,11 +162,11 @@ public class WebElementsActions {
         return alertText;
     }
 
-    public void moveToElementAndClick(String moveToLocator, String clickToElement) throws NoElementFound {
+    public void moveToElementAndClick(String moveToLocator, String clickToElement) {
 
-        WebElement webElement = driver.findElement(LocatorsParser.ui(moveToLocator));
+        WebElement webElement = webDriverWrapper.findElement(UIMappingSingleton.ui(moveToLocator));
 
-        Actions actions = new Actions(driver);
+        Actions actions = new Actions(webDriverWrapper);
         actions.moveToElement(webElement);
         actions.perform();  //!!! always need
         clickButton(clickToElement);
@@ -157,36 +177,36 @@ public class WebElementsActions {
      *Method#1 for refresh page
      */
     public void refreshPage() {
-        driver.navigate().refresh();
+        webDriverWrapper.navigate().refresh();
         log.info("Page is refreshed");
     }
 
     /**
      *Methods for pressing the keypad buttons
      */
-    public void pressSpaceKey(String inputLocator) throws NoElementFound {
+    public void pressSpaceKey(String inputLocator) {
 
-        driver.findElement(LocatorsParser.ui(inputLocator)).sendKeys(Keys.SPACE);
+        webDriverWrapper.findElement(UIMappingSingleton.ui(inputLocator)).sendKeys(Keys.SPACE);
         log.info("input <space> into " + inputLocator + "by pressing the space button on the keypad");
     }
 
-    public void pressEnterKey(String inputLocator) throws NoElementFound {
+    public void pressEnterKey(String inputLocator) {
 
-        driver.findElement(LocatorsParser.ui(inputLocator)).sendKeys(Keys.ENTER);
+        webDriverWrapper.findElement(UIMappingSingleton.ui(inputLocator)).sendKeys(Keys.ENTER);
         log.info("input <ENTER> into " + inputLocator + "by pressing the space button on the keypad");
     }
 
-    public void pressESCAPEKey(String inputLocator) throws  NoElementFound{
-        driver.findElement(LocatorsParser.ui(inputLocator)).sendKeys(Keys.ESCAPE);
+    public void pressESCAPEKey(String inputLocator) {
+        webDriverWrapper.findElement(UIMappingSingleton.ui(inputLocator)).sendKeys(Keys.ESCAPE);
     }
 
-    public void pressPageUp(String inputLocator) throws NoElementFound {
-        driver.findElement(LocatorsParser.ui(inputLocator)).sendKeys(Keys.PAGE_UP);
+    public void pressPageUp(String inputLocator) {
+        webDriverWrapper.findElement(UIMappingSingleton.ui(inputLocator)).sendKeys(Keys.PAGE_UP);
     }
 
-    public void pressTAB(String locator) throws NoElementFound {
+    public void pressTAB(String locator) {
 
-        WebElement webElement = driver.findElement(LocatorsParser.ui((locator)));
+        WebElement webElement = webDriverWrapper.findElement(UIMappingSingleton.ui((locator)));
         webElement.sendKeys(Keys.TAB);
         log.info(String.format("press TAB"));
 
@@ -198,8 +218,8 @@ public class WebElementsActions {
      */
     public boolean waitForAjaxResponse(int timeoutSeconds) throws InterruptedException {
         //TODO js executor
-        if (driver instanceof JavascriptExecutor) {
-            JavascriptExecutor jsDriver = (JavascriptExecutor) driver;
+        if (webDriverWrapper instanceof JavascriptExecutor) {
+            JavascriptExecutor jsDriver = (JavascriptExecutor) webDriverWrapper;
 
             for (int i = 0; i < timeoutSeconds; i++) {
                 Long numberOfConnections = (Long) jsDriver.executeScript("return jQuery.active");
@@ -213,7 +233,7 @@ public class WebElementsActions {
             }
             return false;
         } else {
-            log.info("WebElementsActions Driver: <" + driver + "> cann't execute JavaScript");
+            log.info("WebElementsActions Driver: <" + webDriverWrapper + "> cann't execute JavaScript");
             return false;
         }
     }
@@ -223,33 +243,33 @@ public class WebElementsActions {
      * Use Actions class
      */
 /*    public void doFocusToElementAndClick(String focusElementLocator, String elementLocator) {
-        new Actions(driver.getOriginalDriver()).moveToElement(getElement(focusElementLocator)).perform();
+        new Actions(webDriverWrapper.getOriginalDriver()).moveToElement(getElement(focusElementLocator)).perform();
         log.info("Focus in to element" + focusElementLocator);
-        driver.switchTo();
+        webDriverWrapper.switchTo();
         if (isElementPresent(elementLocator)) {
             clickButton(elementLocator);
         }
     }*/
 
 
-    public WebElement getElement(String elementLocator) throws NoElementFound {
-        return driver.findElement(LocatorsParser.ui(elementLocator));
+    public WebElement getElement(String elementLocator) {
+        return webDriverWrapper.findElement(UIMappingSingleton.ui(elementLocator));
     }
 
-    public List<WebElement> getElements(String elementsLocator) throws NoElementFound {
-        return driver.findElements(LocatorsParser.ui(elementsLocator));
+    public List<WebElement> getElements(String elementsLocator) {
+        return webDriverWrapper.findElements(UIMappingSingleton.ui(elementsLocator));
     }
 
 
-    public String getElementText(String elementsLocator) throws NoElementFound {
-        return driver.findElement(LocatorsParser.ui(elementsLocator)).getText();
+    public String getElementText(String elementsLocator) {
+        return webDriverWrapper.findElement(UIMappingSingleton.ui(elementsLocator)).getText();
     }
 
     /**
      * Insert value into text input HTML field without Clean
      */
-    public void inputWithoutClean(String inputLocator, String inputData) throws NoElementFound {
-        driver.findElement(LocatorsParser.ui(inputLocator)).sendKeys(inputData);
+    public void inputWithoutClean(String inputLocator, String inputData)  {
+        webDriverWrapper.findElement(UIMappingSingleton.ui(inputLocator)).sendKeys(inputData);
         log.info("Input in " + inputLocator + ", value - " + inputData);
     }
 
@@ -257,20 +277,16 @@ public class WebElementsActions {
     /**
      * Select value from drop down list
      */
-    public void selectFromList(String listLocator, String listValue) throws NoElementFound {
-        new Select(driver.findElement(LocatorsParser.ui(listLocator))).selectByValue(listValue);
+    public void selectFromList(String listLocator, String listValue) {
+        new Select(webDriverWrapper.findElement(UIMappingSingleton.ui(listLocator))).selectByValue(listValue);
     }
 
     /**
      * Wait the element on page specified time
      */
     public void waitElementNotVisible(String elementLocator, int timeoutInS) {
-        try {
-            WebDriverWait wait = new WebDriverWait(driver, timeoutInS);
-            wait.until(ExpectedConditions.invisibilityOfElementLocated(LocatorsParser.ui(elementLocator)));
-        } catch (NoElementFound noElementFound) {
-            noElementFound.printStackTrace();
-        }
+        WebDriverWait wait = new WebDriverWait(webDriverWrapper, timeoutInS);
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(UIMappingSingleton.ui(elementLocator)));
     }
 
     /**
@@ -278,17 +294,9 @@ public class WebElementsActions {
      * Visibility means that the element is not only displayed but also has a height and width that is greater than 0.
      * Advantages of this method over isElementPresent(By elementLocator); is that it expects the appearance of an element.
      */
-    public boolean waitForElementPresent(String elementLocator) {
-        try {
-            waitForElement.until(ExpectedConditions.visibilityOfElementLocated(LocatorsParser.ui(elementLocator)));
-            log.info("WaitForElement _" + elementLocator + "_ Present");
-        } catch (NoElementFound noElementFound) {
-            log.error("Waiting for the appearance of the element _" + elementLocator + "_ was not successful " +
-                    "WaitForElement _" + elementLocator + "_ Present");
-            noElementFound.printStackTrace();
-            return false;
-        }
-        return true;
+    public void waitForElementPresent(String elementLocator) {
+        waitForElement.until(ExpectedConditions.visibilityOfElementLocated(UIMappingSingleton.ui(elementLocator)));
+        log.info("WaitForElement _" + elementLocator + "_ Present");
     }
 
     /**
@@ -297,7 +305,7 @@ public class WebElementsActions {
      * @see {@link JavascriptExecutor} and {@link JavascriptExecutor#executeScript(String, Object...)}
      */
     public void windowScroll() {
-        JavascriptExecutor javascriptExecutor = (JavascriptExecutor) driver;
+        JavascriptExecutor javascriptExecutor = (JavascriptExecutor) webDriverWrapper;
         // Vertical scroll - down by 100  pixels
         javascriptExecutor.executeScript("window.scrollBy(0,100)", "");
     }

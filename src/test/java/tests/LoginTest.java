@@ -1,15 +1,8 @@
 package tests;
 
-
-import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import pages.LoginPage;
-import pages.MainPage;
-import utils.NoElementFound;
 import utils.PropertyLoader;
-import utils.WebElementsActions;
-
 
 
 public class LoginTest extends Fixture{
@@ -18,8 +11,7 @@ public class LoginTest extends Fixture{
     private static final String PASSWORD = PropertyLoader.loadProperty("user.pass");
 
     @Test
-    public void testForSuccessfulLogin () throws Exception {
-
+    public void testForSuccessfulLogin () {
         ellos.web.openPage(SITE_URL);
         ellos.web.refreshPage();
 
@@ -33,11 +25,11 @@ public class LoginTest extends Fixture{
         ellos.mainPage.clickLogoutLink();
     }
 
-    @Test
-    public void testForLoginEmptyFieldsValidationError() throws Exception {
+    //@Test
+    public void testForLoginEmptyFieldsValidationError() {
 
         ellos.web.openPage(SITE_URL);
-        ellos.web.refreshPage();
+        //ellos.web.refreshPage();
 
         //click Login link at the header
         ellos.mainPage.clicLoginLink();
@@ -46,11 +38,11 @@ public class LoginTest extends Fixture{
         Assert.assertTrue(ellos.loginPage.isErrorMessageAvailable(), "Error massage is not shown in case blank Email and Password fields");
     }
 
-    @Test
-    public void testForLoginInvalidDataInLoginFieldAndEmptyPasswordField() throws Exception {
+    //@Test
+    public void testForLoginInvalidDataInLoginFieldAndEmptyPasswordField() {
 
         ellos.web.openPage(SITE_URL);
-        ellos.web.refreshPage();
+        //ellos.web.refreshPage();
 
         ellos.mainPage.clicLoginLink();
 
@@ -60,11 +52,11 @@ public class LoginTest extends Fixture{
 
     }
 
-    @Test
-    public void testForLoginFormWithInvalidLoginAndPassword () throws Exception {
+    //@Test
+    public void testForLoginFormWithInvalidLoginAndPassword () {
 
         ellos.web.openPage(SITE_URL);
-        ellos.web.refreshPage();
+        //ellos.web.refreshPage();
 
         ellos.mainPage.clicLoginLink();
 
@@ -76,11 +68,11 @@ public class LoginTest extends Fixture{
         Assert.assertTrue(ellos.loginPage.isErrorMessageAvailable(), "Error massage is not shown in case blank Email and Password fields");
     }
 
-    @Test
-    public void testForLoginFormWitEmptyEmailFieldAndInvalidPassword() throws NoElementFound {
+    //@Test
+    public void testForLoginFormWitEmptyEmailFieldAndInvalidPassword() {
 
         ellos.web.openPage(SITE_URL);
-        ellos.web.refreshPage();
+        //ellos.web.refreshPage();
 
         ellos.mainPage.clicLoginLink();
 
